@@ -2,9 +2,9 @@ package biblioteca.controlador;
 
 import biblioteca.modelo.Modelo;
 import biblioteca.vista.Vista;
-import biblioteca.dominio.Libro;
-import biblioteca.dominio.Usuario;
-import biblioteca.dominio.Prestamo;
+import biblioteca.modelo.dominio.Libro;
+import biblioteca.modelo.dominio.Usuario;
+import biblioteca.modelo.dominio.Prestamo;
 
 import java.time.LocalDate;
 

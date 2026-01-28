@@ -1,6 +1,6 @@
 package biblioteca.negocio;
 
-import biblioteca.dominio.Libro;
+import biblioteca.modelo.dominio.Libro;
 
 public class Libros {
 

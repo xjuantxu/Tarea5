@@ -1,6 +1,6 @@
 package biblioteca.negocio;
 
-import biblioteca.dominio.Usuario;
+import biblioteca.modelo.dominio.Usuario;
 
 public class Usuarios {
 

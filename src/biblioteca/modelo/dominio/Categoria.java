@@ -1,4 +1,4 @@
-package biblioteca.dominio;
+package biblioteca.modelo.dominio;
 
 public enum Categoria {
     NOVELA,

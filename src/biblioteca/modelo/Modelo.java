@@ -4,9 +4,9 @@ import biblioteca.negocio.Libros;
 import biblioteca.negocio.Usuarios;
 import biblioteca.negocio.Prestamos;
 
-import biblioteca.dominio.Libro;
-import biblioteca.dominio.Usuario;
-import biblioteca.dominio.Prestamo;
+import biblioteca.modelo.dominio.Libro;
+import biblioteca.modelo.dominio.Usuario;
+import biblioteca.modelo.dominio.Prestamo;
 
 import java.time.LocalDate;
 
