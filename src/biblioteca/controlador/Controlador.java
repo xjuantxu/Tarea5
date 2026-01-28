@@ -36,36 +36,44 @@ public class Controlador {
     /* ---------- LIBROS ---------- */
 
     public void alta(Libro libro) {
+
         modelo.altaLibro(libro);
     }
 
     public boolean baja(Libro libro) {
+
         return modelo.bajaLibro(libro);
     }
 
     public Libro buscar(Libro libro) {
+
         return modelo.buscarLibro(libro);
     }
 
     public Libro[] listadoLibros() {
+
         return modelo.listadoLibros();
     }
 
     /* ---------- USUARIOS ---------- */
 
     public void alta(Usuario usuario) {
+
         modelo.altaUsuario(usuario);
     }
 
     public boolean baja(Usuario usuario) {
+
         return modelo.bajaUsuario(usuario);
     }
 
     public Usuario buscar(Usuario usuario) {
-        return modelo.buscarUsuario(usuario);
+        return
+                modelo.buscarUsuario(usuario);
     }
 
     public Usuario[] listadoUsuarios() {
+
         return modelo.listadoUsuarios();
     }
 
@@ -80,6 +88,12 @@ public class Controlador {
     }
 
     public Prestamo[] listadoPrestamos() {
+
         return modelo.listadoPrestamos();
+    }
+
+    public Prestamo[] listadoPrestamos(Usuario usuario) {
+        if (usuario == null) return new Prestamo[0];
+        return modelo.listadoPrestamos(usuario);
     }
 }
