@@ -4,13 +4,18 @@ import biblioteca.vista.Vista;
 
 public class AppBiblioteca {
 
-    static void main(String[] args) {
+    public static void main(String[] args) {
 
-        Vista vista = new Vista();
-        Modelo modelo = new Modelo();
+        try {
+            Vista vista = new Vista();
+            Modelo modelo = new Modelo();
 
-        Controlador controlador = new Controlador(modelo, vista);
+            Controlador controlador = new Controlador(modelo, vista);
+            controlador.comenzar();
 
-        controlador.comenzar();
+        } catch (Exception e) {
+            System.out.println("Error grave en la ejecución.");
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 }
