@@ -2,7 +2,6 @@ package biblioteca.vista;
 
     public enum Opcion {
 
-        SALIR("Salir"),
         INSERTAR_USUARIO("Insertar usuario"),
         BORRAR_USUARIO("Borrar usuario"),
         MOSTRAR_USUARIOS("Mostrar usuarios"),
@@ -12,7 +11,8 @@ package biblioteca.vista;
         NUEVO_PRESTAMO("Nuevo préstamo"),
         DEVOLVER_PRESTAMO("Devolver préstamo"),
         MOSTRAR_PRESTAMOS("Mostrar todos los préstamos"),
-        MOSTRAR_PRESTAMOS_USUARIOS("Mostrar préstamos de un usuario");
+        MOSTRAR_PRESTAMOS_USUARIOS("Mostrar préstamos de un usuario"),
+        SALIR("Salir");
 
         private final String descripcion;
 
