@@ -1,6 +1,6 @@
 package biblioteca.modelo;
 
-import biblioteca.negocio.Libros;
+import biblioteca.modelo.negocio.Libros;
 import biblioteca.negocio.Usuarios;
 import biblioteca.negocio.Prestamos;
 
@@ -40,14 +40,14 @@ public class Modelo {
         if (libro == null) {
             throw new IllegalArgumentException("El libro no puede ser nulo");
         }
-        libros.insertar(libro);
+        libros.alta(libro);
     }
 
     public boolean bajaLibro(Libro libro) {
         if (libro == null) {
             return false;
         }
-        return libros.borrar(libro);
+        return libros.baja(libro);
     }
 
     public Libro buscarLibro(Libro libro) {
@@ -58,7 +58,7 @@ public class Modelo {
     }
 
     public Libro[] listadoLibros() {
-        return libros.listar();
+        return libros.todos();
     }
 
     /* ---------- USUARIOS ---------- */
@@ -67,14 +67,14 @@ public class Modelo {
         if (usuario == null) {
             throw new IllegalArgumentException("El usuario no puede ser nulo");
         }
-        usuarios.insertar(usuario);
+        usuarios.alta(usuario);
     }
 
     public boolean bajaUsuario(Usuario usuario) {
         if (usuario == null) {
             return false;
         }
-        return usuarios.borrar(usuario);
+        return usuarios.baja(usuario);
     }
 
     public Usuario buscarUsuario(Usuario usuario) {
@@ -85,7 +85,7 @@ public class Modelo {
     }
 
     public Usuario[] listadoUsuarios() {
-        return usuarios.listar();
+        return usuarios.todos();
     }
 
     /* ---------- PRÉSTAMOS ---------- */
@@ -94,7 +94,7 @@ public class Modelo {
         if (libro == null || usuario == null || fecha == null) {
             return false;
         }
-        return prestamos.prestar(libro, usuario, fecha);
+        return prestamos.prestar(libro, usuario, fecha).isDevuelto();
     }
 
     public boolean devolver(Libro libro, Usuario usuario, LocalDate fecha) {
@@ -105,13 +105,13 @@ public class Modelo {
     }
 
     public Prestamo[] listadoPrestamos() {
-        return prestamos.listar();
+        return prestamos.todos();
     }
 
     public Prestamo[] listadoPrestamos(Usuario usuario) {
         if (usuario == null) {
             return new Prestamo[0];
         }
-        return prestamos.listar(usuario);
+        return prestamos.todos(usuario);
     }
 }
