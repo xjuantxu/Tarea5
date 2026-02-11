@@ -1,18 +1,21 @@
 package biblioteca.vista;
 
 import java.time.LocalDate;
+import java.util.InputMismatchException;
 
-import biblioteca.modelo.dominio.Autor;
-import biblioteca.modelo.dominio.Categoria;
-import biblioteca.modelo.dominio.Direccion;
-import biblioteca.modelo.dominio.Libro;
-import biblioteca.modelo.dominio.Usuario;
+import biblioteca.modelo.dominio.*;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
+/**
+ * Clase Consola: gestiona la interacción con el usuario en la biblioteca.
+ * Contiene métodos para mostrar menú, pedir datos de usuarios y libros,
+ * y leer fechas de préstamos y devoluciones.
+ */
 public class Consola {
 
+    /** Muestra el menú principal de la biblioteca */
     public void mostrarMenu() {
-        System.out.println("\n--- MENÚ BIBLIOTECA ---");
+        System.out.println("--- MENÚ BIBLIOTECA ---");
         System.out.println("0 - Salir");
         System.out.println("1 - Insertar usuario");
         System.out.println("2 - Borrar usuario");
@@ -27,91 +30,242 @@ public class Consola {
         System.out.print("Seleccione opción: ");
     }
 
+    /** Crea un nuevo Usuario, pidiendo todos los datos si buscar=false, o solo DNI si buscar=true */
     public Usuario nuevoUsuario(boolean buscar) {
-        System.out.print("DNI: ");
-        String dni = Entrada.cadena();
+        String dni;
+        String nombre;
+        String email;
+        String via;
+        String numero;
+        String piso;
+        String cp;
+        String localidad;
 
+        Direccion prueba = new Direccion("Calle Falsa", "123", "2º A", "12345", "Springfield");
+        while (true) {
+            System.out.print("ID: ");
+            dni = Entrada.cadena();
+            try {
+                Usuario test = new Usuario(dni, "tmp");
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        } //Bucle que comprueba que el ID es correcto y lanza una excepción en caso contrario
         if (buscar) {
             return new Usuario(dni);
         }
-
-        System.out.print("Nombre: ");
-        String nombre = Entrada.cadena();
-
+        while (true) {
+            System.out.print("Nombre: ");
+            nombre = Entrada.cadena();
+            try {
+                Usuario test = new Usuario(dni, nombre);
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        } //Bucle que comprueba que el nombre es correcto y lanza una excepción en caso contrario
         Usuario usuario = new Usuario(dni, nombre);
+        while (true) {
+            System.out.print("Email: ");
+            email = Entrada.cadena();
+            try {
+                Usuario test = new Usuario(dni, nombre);
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        } //Bucle que comprueba que el email es correcto y lanza una excepción en caso contrario
+        usuario.setEmail(email);
 
-        System.out.print("Email: ");
-        usuario.setEmail(Entrada.cadena());
-
-        System.out.print("Vía: ");
-        String via = Entrada.cadena();
-
-        System.out.print("Número: ");
-        String numero = Entrada.cadena();
-
-        System.out.print("Piso: ");
-        String piso = Entrada.cadena();
-
-        System.out.print("CP: ");
-        String cp = Entrada.cadena();
-
-        System.out.print("Localidad: ");
-        String localidad = Entrada.cadena();
-
+        while (true) {
+            System.out.print("Vía: ");
+            via = Entrada.cadena();
+            try {
+                Direccion prueba2 = new Direccion(via, "1", "2ºA", "00000", "tmp");
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        } //Bucle que comprueba que la vía es correcta y lanza una excepción en caso contrario
+        while (true) {
+            System.out.print("Número: ");
+            numero = Entrada.cadena();
+            try {
+                Direccion prueba2 = new Direccion(via, numero, "2ºA", "00000", "tmp");
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        } //Bucle que comprueba que el número es correcto y lanza una excepción en caso contrario
+        while (true) {
+            System.out.print("Piso: ");
+            piso = Entrada.cadena();
+            try {
+                Direccion prueba2 = new Direccion(via, numero, piso, "00000", "tmp");
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        } //Bucle que comprueba que el piso es correcto y lanza una excepción en caso contrario
+        while (true) {
+            System.out.print("Código Postal: ");
+            cp = Entrada.cadena();
+            try {
+                Direccion prueba2 = new Direccion(via, numero, piso, cp, "tmp");
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        } //Bucle que comprueba que el código postal es correcto y lanza una excepción en caso contrario
+        while (true) {
+            System.out.print("Localidad: ");
+            localidad = Entrada.cadena();
+            try {
+                Direccion prueba2 = new Direccion(via, numero, piso, cp, localidad);
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        } //Bucle que comprueba que la localidad es correcta y lanza una excepción en caso contrario
         usuario.setDireccion(new Direccion(via, numero, piso, cp, localidad));
 
         return usuario;
     }
 
+    /** Crea un nuevo Libro, pidiendo todos los datos si buscar=false, o solo ISBN si buscar=true */
     public Libro nuevoLibro(boolean buscar) {
-        System.out.print("ISBN: ");
-        String isbn = Entrada.cadena();
 
+        String isbn;
+        String titulo;
+        Categoria categoria = null;
+        int entrada = 0;
+        int anio = -1;
+        int nAutores = 0;
+
+        while (true) {
+            System.out.print("ISBN: ");
+            isbn = Entrada.cadena();
+            try {
+                Libro prueba = new Libro(isbn, "tmp", 1, Categoria.OTROS);
+                ;
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }//Bucle que comprueba que el ISBN es correcto y lanza una excepción en caso contrario
         if (buscar) {
             return new Libro(isbn, "", 0, Categoria.OTROS);
         }
+        while (true) {
+            System.out.print("Título: ");
+            titulo = Entrada.cadena();
+            try {
+                Libro test = new Libro(isbn, titulo, 2025, Categoria.TECNICO);
 
-        System.out.print("Título: ");
-        String titulo = Entrada.cadena();
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }//Bucle que comprueba que el título es correcto y lanza una excepción en caso contrario
 
-        System.out.print("Año: ");
-        int anio = Entrada.entero();
 
-        Categoria[] categorias = Categoria.values();
-        for (int i = 0; i < categorias.length; i++)
-            System.out.println(i + " - " + categorias[i]);
+        while (anio <= 0) {
+            System.out.print("Año: ");
+            anio = Entrada.entero();
+            try {
+                Libro test = new Libro(isbn, titulo, anio, Categoria.TECNICO);
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida. Por favor, introduce un numero entero");
+            }
+        } //Bucle que comprueba la validez del año y lanza excepción si no es válido
 
-        int opcion = Entrada.entero();
-        Categoria categoria = categorias[opcion];
+        System.out.println("Categorías disponibles:");
+        int l = 1;
+        for (Categoria cat : Categoria.values()) {
+            System.out.println(l + ". " + cat);
+            l++;
+        }
+
+        while ((entrada < 1) || (entrada > 7)) {
+
+            try {
+                System.out.print("Selecciona una categoría: ");
+                entrada = Entrada.entero();
+                if (entrada < 1 || entrada > 7) {
+                    System.out.println("Categoría no válida.");
+                } else {
+                    categoria = Categoria.values()[entrada - 1];
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida. Por favor. Introduce un número entero.");
+            }
+        } //Bucle que comprueba la validez de la categoría y lanza excepción si no es válida.
 
         Libro libro = new Libro(isbn, titulo, anio, categoria);
 
-        System.out.print("Número de autores (1-3): ");
-        int numAutores = Entrada.entero();
+        while ((nAutores <= 0) || (nAutores > Libro.MAX_AUTORES)) {
+            try {
+                System.out.print("Número de autores: ");
+                nAutores = Entrada.entero();
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida. Por favor. Introduce un número entero.");
+            }
+        }//Bucle que comprueba el número de autores y lanza excepción si no es válido
 
-        for (int i = 0; i < numAutores && i < Libro.MAX_AUTORES; i++)
+        for (int i = 0; i < nAutores && i < Libro.MAX_AUTORES; i++)
             libro.addAutor(nuevoAutor());
 
         return libro;
     }
 
+    /** Crea un nuevo Autor pidiendo sus datos */
     public Autor nuevoAutor() {
-        System.out.print("Nombre: ");
-        String nombre = Entrada.cadena();
+        String nombre;
+        String apellidos;
+        String nac;
 
-        System.out.print("Apellidos: ");
-        String apellidos = Entrada.cadena();
+        while (true) {
+            System.out.print("Nombre autor: ");
+            nombre = Entrada.cadena();
+            try {
+                Autor autor = new Autor(nombre, "tmp", "tmp");
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        } //Bucle que comprueba la validez del nombre y lanza excepción si no es válido.
+        while (true) {
+            System.out.print("Apellidos: ");
+            apellidos = Entrada.cadena();
+            try {
+                Autor autor = new Autor("tmp", apellidos, "tmp");
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        } //Bucle que comprueba la validez de los apellidos y lanza excepción si no es válido.
+        while (true) {
+            System.out.print("Nacionalidad: ");
+            nac = Entrada.cadena();
+            try {
+                Autor autor = new Autor("tmp", "tmp", nac);
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        } //Bucle que comprueba la validez de la nacionalidad y lanza excepción si no es válido.
 
-        System.out.print("Nacionalidad: ");
-        String nacionalidad = Entrada.cadena();
-
-        return new Autor(nombre, apellidos, nacionalidad);
+        return new Autor(nombre, apellidos, nac);
     }
 
+    /** Devuelve la fecha actual del sistema */
     public LocalDate leerFecha() {
         return LocalDate.now();
     }
 
+    /** Método de cierre de consola */
     public void terminar() {
         System.out.println("Termina consola");
     }

@@ -1,9 +1,7 @@
 package biblioteca.vista;
 
 import biblioteca.controlador.Controlador;
-import biblioteca.modelo.Modelo;
 import biblioteca.modelo.dominio.*;
-import biblioteca.vista.Opcion;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
 import java.time.LocalDate;
