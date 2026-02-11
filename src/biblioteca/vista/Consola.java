@@ -265,7 +265,7 @@ public class Consola {
         return LocalDate.now();
     }
 
-    /** Método de cierre de consola */
+    /** Metodo de cierre de consola */
     public void terminar() {
         System.out.println("Termina consola");
     }
