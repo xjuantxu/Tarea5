@@ -1,3 +1,5 @@
+package biblioteca;
+
 import biblioteca.controlador.Controlador;
 import biblioteca.modelo.Modelo;
 import biblioteca.vista.Vista;

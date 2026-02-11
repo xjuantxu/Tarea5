@@ -8,10 +8,10 @@ public class Autor {
     private String apellidos;
     private String nacionalidad;
 
-    public Autor(String nombre, String apellidos, String nacionalidad) {
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.nacionalidad = nacionalidad;
+    public Autor(String nombre, String apellidos, String nacionalidad){
+        setNombre(nombre);
+        setApellidos(apellidos);
+        setNacionalidad(nacionalidad);
     }
 
     // Constructor copia
@@ -21,27 +21,38 @@ public class Autor {
         this.nacionalidad = otro.nacionalidad;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public String getNombre() {
+
+        return nombre;
     }
 
     public String getApellidos() {
         return apellidos;
     }
 
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
     public String getNacionalidad() {
+
         return nacionalidad;
     }
 
-    public void setNacionalidad(String nacionalidad) {
+    public void setNombre(String nombre) {
+        if (nombre == null) throw new IllegalArgumentException("Nombre no puede ser nulo");
+        if (nombre.trim().isEmpty()) throw new IllegalArgumentException("Nombre no puede estar vacío");
+
+        this.nombre = nombre;
+    }
+
+    public void setApellidos(String apellidos) throws IllegalArgumentException {
+        if (apellidos == null) throw new IllegalArgumentException("Apellidos no puede ser nulo");
+        if (apellidos.trim().isEmpty()) throw new IllegalArgumentException("Apellidos no puede estar vacío");
+        this.apellidos = apellidos;
+    }
+
+
+    public void setNacionalidad(String nacionalidad) throws IllegalArgumentException {
+        if (nacionalidad == null) throw new IllegalArgumentException("Nacionalidad no puede ser nulo");
+        if (nacionalidad.trim().isEmpty()) throw new IllegalArgumentException("Nacionalidad no puede estar vacío");
         this.nacionalidad = nacionalidad;
     }
 

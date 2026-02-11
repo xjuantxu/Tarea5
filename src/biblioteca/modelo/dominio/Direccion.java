@@ -2,7 +2,7 @@ package biblioteca.modelo.dominio;
 
 public class Direccion {
 
-    public static final String CP_PATTERN = "[0-9]{5}";
+    public static final String CP_PATRON = "[0-9]{5}";
 
     private String via;
     private String numero;
@@ -11,11 +11,11 @@ public class Direccion {
     private String localidad;
 
     public Direccion(String via, String numero, String piso, String cp, String localidad) {
-        this.via = via;
-        this.numero = numero;
-        this.piso = piso;
-        this.cp = cp;
-        this.localidad = localidad;
+        setVia(via);
+        setNumero(numero);
+        setPiso(piso);
+        setCp(cp);
+        setLocalidad(localidad);
     }
 
     // Constructor copia
@@ -31,39 +31,49 @@ public class Direccion {
         return via;
     }
 
-    public void setVia(String via) {
-        this.via = via;
-    }
-
     public String getNumero() {
         return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
     }
 
     public String getPiso() {
         return piso;
     }
 
-    public void setPiso(String piso) {
-        this.piso = piso;
-    }
-
     public String getCp() {
         return cp;
-    }
-
-    public void setCp(String cp) {
-        this.cp = cp;
     }
 
     public String getLocalidad() {
         return localidad;
     }
 
-    public void setLocalidad(String localidad) {
+    public void setVia(String via) throws IllegalArgumentException {
+        if (via == null) throw new IllegalArgumentException("Via no puede ser nulo");
+        if (via.trim().isEmpty()) throw new IllegalArgumentException("Via no puede estar vacío");
+        this.via = via;
+    }
+
+    public void setNumero(String numero) throws IllegalArgumentException {
+        if (numero == null) throw new IllegalArgumentException("Número no puede ser nulo");
+        if (numero.trim().isEmpty()) throw new IllegalArgumentException("Número no puede estar vacío");
+        this.numero = numero;
+    }
+
+    public void setPiso(String piso)  {
+        this.numero = numero;
+    } //Piso puede quedar vacío, ya que puede tratarse de un adosado.
+
+    public void setCp(String cp) throws IllegalArgumentException {
+        //Junto con que no sea nulo, comprueba que el código postal sigue el patrón especificado.
+        if (cp == null) throw new IllegalArgumentException("Código postal no puede ser nulo");
+        if (cp.trim().isEmpty()) throw new IllegalArgumentException("Código postal no puede estar vacío");
+        if (!cp.matches(CP_PATRON)) throw new IllegalArgumentException("Código postal inválido.");
+        this.cp = cp;
+    }
+
+    public void setLocalidad(String localidad) throws IllegalArgumentException {
+        if (localidad == null) throw new IllegalArgumentException("Localidad no puede ser nulo");
+        if (localidad.trim().isEmpty()) throw new IllegalArgumentException("Localidad no puede estar vacío");
         this.localidad = localidad;
     }
 

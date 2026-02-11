@@ -1,8 +1,8 @@
 package biblioteca.modelo;
 
 import biblioteca.modelo.negocio.Libros;
-import biblioteca.negocio.Usuarios;
-import biblioteca.negocio.Prestamos;
+import biblioteca.modelo.negocio.Usuarios;
+import biblioteca.modelo.negocio.Prestamos;
 
 import biblioteca.modelo.dominio.Libro;
 import biblioteca.modelo.dominio.Usuario;
@@ -12,106 +12,59 @@ import java.time.LocalDate;
 
 public class Modelo {
 
-    public static final int CAPACIDAD = 100;
+    private static final int CAPACIDAD = 100;
 
     private Libros libros;
     private Usuarios usuarios;
     private Prestamos prestamos;
 
-    public Modelo() {
-        // Constructor vacío a propósito
-    }
+    public Modelo() {}
 
     public void comenzar() {
         libros = new Libros(CAPACIDAD);
         usuarios = new Usuarios(CAPACIDAD);
         prestamos = new Prestamos(CAPACIDAD);
-
-        System.out.println("Modelo iniciado");
     }
 
     public void terminar() {
-        System.out.println("Modelo terminado");
+        System.out.println("Termina Modelo");
     }
 
-    /* ---------- LIBROS ---------- */
+    /* ===== USUARIOS ===== */
 
-    public void altaLibro(Libro libro) {
-        if (libro == null) {
-            throw new IllegalArgumentException("El libro no puede ser nulo");
-        }
-        libros.alta(libro);
+    public void altaUsuario(Usuario u) { usuarios.alta(u); }
+
+    public boolean bajaUsuario(Usuario u) { return usuarios.baja(u); }
+
+    public Usuario buscarUsuario(Usuario u) { return usuarios.buscar(u); }
+
+    public Usuario[] listadoUsuarios() { return usuarios.todos(); }
+
+    /* ===== LIBROS ===== */
+
+    public void altaLibro(Libro l) { libros.alta(l); }
+
+    public boolean bajaLibro(Libro l) { return libros.baja(l); }
+
+    public Libro buscarLibro(Libro l) { return libros.buscar(l); }
+
+    public Libro[] listadoLibros() { return libros.todos(); }
+
+    /* ===== PRÉSTAMOS ===== */
+
+    public boolean prestar(Libro l, Usuario u, LocalDate f) {
+        return prestamos.prestar(l, u, f) != null;
     }
 
-    public boolean bajaLibro(Libro libro) {
-        if (libro == null) {
-            return false;
-        }
-        return libros.baja(libro);
-    }
-
-    public Libro buscarLibro(Libro libro) {
-        if (libro == null) {
-            return null;
-        }
-        return libros.buscar(libro);
-    }
-
-    public Libro[] listadoLibros() {
-        return libros.todos();
-    }
-
-    /* ---------- USUARIOS ---------- */
-
-    public void altaUsuario(Usuario usuario) {
-        if (usuario == null) {
-            throw new IllegalArgumentException("El usuario no puede ser nulo");
-        }
-        usuarios.alta(usuario);
-    }
-
-    public boolean bajaUsuario(Usuario usuario) {
-        if (usuario == null) {
-            return false;
-        }
-        return usuarios.baja(usuario);
-    }
-
-    public Usuario buscarUsuario(Usuario usuario) {
-        if (usuario == null) {
-            return null;
-        }
-        return usuarios.buscar(usuario);
-    }
-
-    public Usuario[] listadoUsuarios() {
-        return usuarios.todos();
-    }
-
-    /* ---------- PRÉSTAMOS ---------- */
-
-    public boolean prestar(Libro libro, Usuario usuario, LocalDate fecha) {
-        if (libro == null || usuario == null || fecha == null) {
-            return false;
-        }
-        return prestamos.prestar(libro, usuario, fecha).isDevuelto();
-    }
-
-    public boolean devolver(Libro libro, Usuario usuario, LocalDate fecha) {
-        if (libro == null || usuario == null || fecha == null) {
-            return false;
-        }
-        return prestamos.devolver(libro, usuario, fecha);
+    public boolean devolver(Libro l, Usuario u, LocalDate f) {
+        return prestamos.devolver(l, u, f);
     }
 
     public Prestamo[] listadoPrestamos() {
         return prestamos.todos();
     }
 
-    public Prestamo[] listadoPrestamos(Usuario usuario) {
-        if (usuario == null) {
-            return new Prestamo[0];
-        }
-        return prestamos.todos(usuario);
+    public Prestamo[] listadoPrestamos(Usuario u) {
+        return prestamos.todos(u);
     }
 }

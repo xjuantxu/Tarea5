@@ -35,11 +35,11 @@ public class Prestamo {
         return new Usuario(usuario);
     }
 
-    public LocalDate getInicio() {
+    public LocalDate getFinicio() {
         return inicio;
     }
 
-    public LocalDate getFin() {
+    public LocalDate getFin(LocalDate fecha) {
         return fin;
     }
 

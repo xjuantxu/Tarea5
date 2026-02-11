@@ -1,4 +1,4 @@
-package biblioteca.negocio;
+package biblioteca.modelo.negocio;
 
 import biblioteca.modelo.dominio.Usuario;
 

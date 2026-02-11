@@ -1,4 +1,4 @@
-package biblioteca.negocio;
+package biblioteca.modelo.negocio;
 
 import biblioteca.modelo.dominio.Prestamo;
 import biblioteca.modelo.dominio.Libro;
@@ -26,7 +26,7 @@ public class Prestamos {
         for (Prestamo p : prestamos) {
             if (p != null
                     && p.getLibro().equals(libro)
-                    && p.getFechaDevolucion() == null) {
+                    && p.getFin(fecha) == null) {
                 return null; // libro ya prestado
             }
         }
@@ -48,18 +48,21 @@ public class Prestamos {
         if (libro == null || usuario == null || fecha == null) {
             return false;
         }
+        {
 
-        for (Prestamo p : prestamos) {
-            if (p != null
-                    && p.getLibro().equals(libro)
-                    && p.getUsuario().equals(usuario)
-                    && p.getFechaDevolucion() == null) {
+            for (Prestamo p : prestamos) {
+                if (p != null &&
+                        p.getLibro().equals(libro) &&
+                        p.getUsuario().equals(usuario) &&
+                        !p.isDevuelto()) {
 
-                p.setFechaDevolucion(fecha);
-                return true;
+                    p.devolver(fecha);
+                    return true;
+                }
             }
+
+            return false;
         }
-        return false;
     }
 
     /* ---------- LISTAR ---------- */

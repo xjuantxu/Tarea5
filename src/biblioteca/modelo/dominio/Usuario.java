@@ -4,8 +4,8 @@ import java.util.Objects;
 
 public class Usuario {
 
-    public static final String DNI_PATTERN = "[0-9]{8}[A-Z]";
-    public static final String EMAIL_REGEX = ".+@.+\\..+";
+    public static final String DNI_PATRON = "\\d{8}[A-Z]";
+    public static final String EMAIL_BASICO = ".+@.+\\..+";
 
     private String dni;
     private String nombre;
@@ -13,48 +13,74 @@ public class Usuario {
     private Direccion direccion;
 
     public Usuario(String dni, String nombre) {
-        this.dni = dni;
-        this.nombre = nombre;
+        setDni(dni);
+        setNombre(nombre);
     }
 
-    // Constructor copia
+    // Constructor dni para buscar por DNI
+    public Usuario(String dni) {
+        this(dni, "Temporal");
+    }
+
+    //Constructor copia profunda
     public Usuario(Usuario otro) {
         this.dni = otro.dni;
         this.nombre = otro.nombre;
         this.email = otro.email;
-        this.direccion = otro.direccion != null ? new Direccion(otro.direccion) : null;
+
+        // Copia profunda de la dirección
+        if (otro.direccion != null) {
+            this.direccion = new Direccion(
+                    otro.direccion.getVia(),
+                    otro.direccion.getNumero(),
+                    otro.direccion.getPiso(),
+                    otro.direccion.getCp(),
+                    otro.direccion.getLocalidad()
+            );
+        }
     }
 
     public String getDni() {
         return dni;
     }
 
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
-
     public String getNombre() {
         return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public Direccion getDireccion() {
+        return direccion;
+    }
+
+    public void setDni(String id) {
+        if (id == null) throw new IllegalArgumentException("ID no puede ser nulo");
+        if (id.trim().isEmpty()) throw new IllegalArgumentException("ID no puede estar vacío");
+        //Verifica que el ID siga el patrón especificado y lanza una excepción si falla.
+        if (!id.matches(DNI_PATRON)) throw new IllegalArgumentException("ID inválido");
+
+        this.dni = dni;
+    }
+
+    public void setNombre(String nombre) throws IllegalArgumentException {
+        if (nombre == null) throw new IllegalArgumentException("Nombre no puede ser nulo");
+        if (nombre.trim().isEmpty()) throw new IllegalArgumentException("Nombre no puede estar vacío");
+        this.nombre = nombre;
+    }
+
+    public void setEmail(String email) throws IllegalArgumentException {
+        if (email == null) throw new IllegalArgumentException("Email no puede ser nulo");
+        if (email.trim().isEmpty()) throw new IllegalArgumentException("Email no puede estar vacío");
+        //Si el email no sigue el patrón establecido, lanza una excepción.
+        if (!email.matches(EMAIL_BASICO)) throw new IllegalArgumentException("Email inválido");
         this.email = email;
     }
 
-    public Direccion getDireccion() {
-        return direccion != null ? new Direccion(direccion) : null;
-    }
-
-    public void setDireccion(Direccion direccion) {
-        this.direccion = direccion != null ? new Direccion(direccion) : null;
+    public void setDireccion(Direccion direccion) throws IllegalArgumentException {
+        this.direccion = direccion;
     }
 
     @Override
@@ -72,6 +98,7 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return dni + " - " + nombre;
+        return "Usuario: " + nombre + " (" + dni + ") - " + email +
+                "\nDirección: " + direccion;
     }
 }

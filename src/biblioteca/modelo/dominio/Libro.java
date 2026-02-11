@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Libro {
 
-    public static final String ISBN_PATTERN = "[0-9]{13}";
+    public static final String PATRON_ISBN = "\\d{10}|\\d[13]";
     public static final int MAX_AUTORES = 3;
 
     private String isbn;
@@ -15,56 +15,52 @@ public class Libro {
     private Autor[] autores;
     private int numAutores;
 
+    /* ---------- CONSTRUCTOR PRINCIPAL ---------- */
     public Libro(String isbn, String titulo, int anio, Categoria categoria) {
-        this.isbn = isbn;
-        this.titulo = titulo;
-        this.anio = anio;
-        this.categoria = categoria;
+
+        setIsbn(isbn);
+        setTitulo(titulo);
+        setAnio(anio);
+        setCategoria(categoria);
         this.autores = new Autor[MAX_AUTORES];
         this.numAutores = 0;
     }
 
-    // Constructor copia
-    public Libro(Libro otro) {
-        this.isbn = otro.isbn;
-        this.titulo = otro.titulo;
-        this.anio = otro.anio;
-        this.categoria = otro.categoria;
-        this.autores = new Autor[MAX_AUTORES];
-        this.numAutores = otro.numAutores;
-
-        for (int i = 0; i < otro.numAutores; i++) {
-            this.autores[i] = new Autor(otro.autores[i]);
+    public Libro(Libro libro) {
+        this(libro.isbn, libro.titulo, libro.anio, libro.categoria);
+        for (Autor a : libro.getAutores()) {
+            addAutor(new Autor(a));
         }
     }
+
+
 
     /* ---------- GESTIÓN DE AUTORES ---------- */
 
-    public boolean addAutor(Autor autor) {
+    public void addAutor(Autor autor) throws IllegalArgumentException {
         if (autor == null) {
-            return false;
+            throw new IllegalArgumentException("Autor no puede ser nulo");
         }
-        if (numAutores < MAX_AUTORES) {
-            autores[numAutores++] = new Autor(autor);
-            return true;
-        }
-        return false;
-    }
 
-    public boolean removeAutor(Autor autor) {
-        if (autor == null) return false;
-
-        for (int i = 0; i < numAutores; i++) {
-            if (autores[i].equals(autor)) {
-                // Desplazar elementos
-                for (int j = i; j < numAutores - 1; j++) {
-                    autores[j] = autores[j + 1];
-                }
-                autores[--numAutores] = null;
-                return true;
+        for (int i = 0; i < MAX_AUTORES; i++) {
+            if (autores[i] == null) {
+                autores[i] = new Autor(autor); // copia profunda
+                return;
             }
         }
-        return false;
+
+        throw new IllegalStateException("Máximo número de autores alcanzado");
+    }
+
+    public void borrarAutor(Autor autor) {
+        if (autor == null) return;
+
+        for (int i = 0; i < MAX_AUTORES; i++) {
+            if (autores[i] != null && autores[i].equals(autor)) {
+                autores[i] = null;
+                return;
+            }
+        }
     }
 
     /* ---------- GETTERS ---------- */
@@ -86,13 +82,40 @@ public class Libro {
     }
 
     public Autor[] getAutores() {
-        Autor[] copia = new Autor[numAutores];
-        for (int i = 0; i < numAutores; i++) {
-            copia[i] = new Autor(autores[i]);
+        Autor[] copia = new Autor[MAX_AUTORES];
+        for (int i = 0; i < MAX_AUTORES; i++) {
+            if (autores[i] != null) {
+                copia[i] = new Autor(autores[i]);
+            }
         }
         return copia;
     }
 
+    /* ---------- SETTERS ---------- */
+
+    public void setIsbn(String isbn) throws IllegalArgumentException {
+        if (isbn == null) throw new IllegalArgumentException("ISBN no puede ser nulo");
+        if (isbn.trim().isEmpty()) throw new IllegalArgumentException("ISBN no puede estar vacío");
+        //Si el ISBN no sigue el patrón lanza una excepción
+        if (!isbn.matches(PATRON_ISBN)) throw new IllegalArgumentException("ISBN no válido");
+        this.isbn = isbn;
+    }
+
+    public void setTitulo(String titulo) throws IllegalArgumentException {
+        if (titulo == null) throw new IllegalArgumentException("Título no puede ser nulo");
+        if (titulo.trim().isEmpty()) throw new IllegalArgumentException("Título no puede estar vacío");
+        this.titulo = titulo;
+    }
+
+    public void setAnio(int anio) throws IllegalArgumentException {
+        if (anio <= 0) throw new IllegalArgumentException("Año inválido");
+        this.anio = anio;
+    }
+
+    public void setCategoria(Categoria categoria) throws IllegalArgumentException {
+        if (categoria == null) throw new IllegalArgumentException("Categoría no puede ser nulo");
+        this.categoria = categoria;
+    }
     /* ---------- EQUALS / HASHCODE ---------- */
 
     @Override
@@ -104,22 +127,19 @@ public class Libro {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(isbn);
-    }
+    public int hashCode() {return Objects.hash(isbn);}
 
     /* ---------- TOSTRING ---------- */
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(titulo).append(" (").append(anio).append(") - ").append(categoria);
-        sb.append("\nAutores: ");
-        for (int i = 0; i < numAutores; i++) {
-            sb.append(autores[i].toString());
-            if (i < numAutores - 1) sb.append(", ");
-        }
-        sb.append("\nISBN: ").append(isbn);
-        return sb.toString();
+        return "Libro{" +
+                "isbn='" + isbn + '\'' +
+                ", titulo='" + titulo + '\'' +
+                ", anio=" + anio +
+                ", categoria=" + categoria +
+                ", autores=" + Arrays.toString(autores) +
+                '}';
     }
 }
+
