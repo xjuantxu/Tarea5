@@ -5,6 +5,7 @@ import biblioteca.modelo.dominio.*;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
 import java.time.LocalDate;
+import java.util.InputMismatchException;
 
 /**
  * Clase Vista.
@@ -32,12 +33,20 @@ public class Vista {
 
     //Comenzamos la interacción con el usuario
     public void comenzar() {
-        int opcion;
+        int opcion = -1;
 
         do {
             consola.mostrarMenu();
-            opcion = Entrada.entero();
-            ejecutarOpcion(opcion);
+            try {
+                System.out.print("Elige una opción: ");
+                opcion = Entrada.entero();
+                if (opcion < 0 || opcion > 10) {
+                    System.out.println("La opción escogida no es válida. Por favor. Inténtalo de nuevo.");
+                }
+                ejecutarOpcion(opcion);
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida. Por favor. Introduce un número entero.");
+            }
         } while (opcion != 0);
     }
 
