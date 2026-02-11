@@ -1,5 +1,9 @@
 package biblioteca.vista;
 
+/**
+ * Enumeración Opcion.
+ * Representa las opciones del menú principal de la biblioteca.
+ */
     public enum Opcion {
 
         INSERTAR_USUARIO("Insertar usuario"),
@@ -14,8 +18,10 @@ package biblioteca.vista;
         MOSTRAR_PRESTAMOS_USUARIOS("Mostrar préstamos de un usuario"),
         SALIR("Salir");
 
+        // atributo para generar la descripción de cada opción
         private final String descripcion;
 
+        // Constructor
         private Opcion(String descripcion) {
             this.descripcion = descripcion;
         }

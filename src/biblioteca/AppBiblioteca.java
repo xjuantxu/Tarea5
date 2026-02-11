@@ -4,8 +4,14 @@ import biblioteca.controlador.Controlador;
 import biblioteca.modelo.Modelo;
 import biblioteca.vista.Vista;
 
+/**
+ * Clase AppBiblioteca.
+ * Punto de entrada de la aplicación.
+ * Inicializa el Modelo, la Vista y el Controlador y arranca la aplicación.
+ */
 public class AppBiblioteca {
 
+    //Inicializa la aplicación
     public static void main(String[] args) {
 
         try {

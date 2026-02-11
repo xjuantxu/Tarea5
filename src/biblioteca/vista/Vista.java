@@ -6,15 +6,23 @@ import org.iesalandalus.programacion.utilidades.Entrada;
 
 import java.time.LocalDate;
 
+/**
+ * Clase Vista.
+ * Gestiona la interacción con el usuario.
+ * Llama a la Consola para la entrada de datos y al Controlador para ejecutar operaciones.
+ */
 public class Vista {
 
+    //Atributos
     private Controlador controlador;
     private Consola consola;
 
+    //Iniciamos la consola
     public Vista() {
         consola = new Consola();
     }
 
+    //Asignamos controlador
     public void setControlador(Controlador controlador) {
         if (controlador == null)
             throw new IllegalArgumentException("Controlador no puede ser nulo");
@@ -22,6 +30,7 @@ public class Vista {
         this.controlador = controlador;
     }
 
+    //Comenzamos la interacción con el usuario
     public void comenzar() {
         int opcion;
 
@@ -32,10 +41,12 @@ public class Vista {
         } while (opcion != 0);
     }
 
+    //Terminamos la vista
     public void terminar() {
         consola.terminar();
     }
 
+    //Ejecutamos la opción seleccionada
     private void ejecutarOpcion(int opcion) {
 
         switch (opcion) {
@@ -89,8 +100,7 @@ public class Vista {
         }
     }
 
-    /* ===== USUARIOS ===== */
-
+    //Métodos de usuarios
     private void insertarUsuario() {
         Usuario usuario = consola.nuevoUsuario(false);
 
@@ -99,7 +109,6 @@ public class Vista {
         else
             System.out.println("El usuario ya existe");
     }
-
     private void borrarUsuario() {
         Usuario usuario = consola.nuevoUsuario(true);
 
@@ -108,7 +117,6 @@ public class Vista {
         else
             System.out.println("Usuario no encontrado");
     }
-
     private void listarUsuarios() {
         Usuario[] usuarios = controlador.listadoUsuarios();
 
@@ -119,8 +127,7 @@ public class Vista {
         }
     }
 
-    /* ===== LIBROS ===== */
-
+    //Métodos de libros
     private void insertarLibro() {
         Libro libro = consola.nuevoLibro(false);
 
@@ -129,7 +136,6 @@ public class Vista {
         else
             System.out.println("El libro ya existe");
     }
-
     private void borrarLibro() {
         Libro libro = consola.nuevoLibro(true);
 
@@ -138,7 +144,6 @@ public class Vista {
         else
             System.out.println("Libro no encontrado");
     }
-
     private void listarLibros() {
         Libro[] libros = controlador.listadoLibros();
 
@@ -149,8 +154,7 @@ public class Vista {
         }
     }
 
-    /* ===== PRÉSTAMOS ===== */
-
+    //Métodos de préstamos
     private void nuevoPrestamo() {
 
         System.out.println("--- NUEVO PRÉSTAMO ---");
@@ -178,7 +182,6 @@ public class Vista {
         else
             System.out.println("No se pudo realizar el préstamo");
     }
-
     private void devolverPrestamo() {
 
         System.out.println("--- DEVOLUCIÓN ---");
@@ -206,7 +209,6 @@ public class Vista {
         else
             System.out.println("No se encontró préstamo activo");
     }
-
     private void mostrarPrestamos() {
 
         Prestamo[] prestamos = controlador.listadoPrestamos();
@@ -218,7 +220,6 @@ public class Vista {
                 System.out.println(p);
         }
     }
-
     private void mostrarPrestamosUsuario() {
 
         System.out.print("DNI del usuario: ");

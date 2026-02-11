@@ -13,7 +13,7 @@ import org.iesalandalus.programacion.utilidades.Entrada;
  */
 public class Consola {
 
-    /** Muestra el menú principal de la biblioteca */
+    // Muestra el menú principal
     public void mostrarMenu() {
         System.out.println("--- MENÚ BIBLIOTECA ---");
         System.out.println("0 - Salir");
@@ -30,7 +30,7 @@ public class Consola {
         System.out.print("Seleccione opción: ");
     }
 
-    /** Crea un nuevo Usuario, pidiendo todos los datos si buscar=false, o solo DNI si buscar=true */
+    //Crea un nuevo Usuario
     public Usuario nuevoUsuario(boolean buscar) {
         String dni;
         String nombre;
@@ -133,7 +133,7 @@ public class Consola {
         return usuario;
     }
 
-    /** Crea un nuevo Libro, pidiendo todos los datos si buscar=false, o solo ISBN si buscar=true */
+    // Crea un nuevo Libro
     public Libro nuevoLibro(boolean buscar) {
 
         String isbn;
@@ -220,7 +220,7 @@ public class Consola {
         return libro;
     }
 
-    /** Crea un nuevo Autor pidiendo sus datos */
+    // Crea un nuevo Autor
     public Autor nuevoAutor() {
         String nombre;
         String apellidos;
@@ -260,12 +260,12 @@ public class Consola {
         return new Autor(nombre, apellidos, nac);
     }
 
-    /** Devuelve la fecha actual del sistema */
+    // Devuelve la fecha actual
     public LocalDate leerFecha() {
         return LocalDate.now();
     }
 
-    /** Metodo de cierre de consola */
+    // Metodo de cierre de consola
     public void terminar() {
         System.out.println("Termina consola");
     }
