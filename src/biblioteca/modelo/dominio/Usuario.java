@@ -1,17 +1,25 @@
 package biblioteca.modelo.dominio;
 
 import java.util.Objects;
+/**
+ * Clase Usuario.
+ * Representa un usuario de la biblioteca.
+ * Contiene DNI, nombre, email y dirección.
+ */
 
 public class Usuario {
 
+    // Patron para DNI y email
     public static final String DNI_PATRON = "\\d{8}[A-Z]";
     public static final String EMAIL_BASICO = ".+@.+\\..+";
 
+    // Atributos
     private String dni;
     private String nombre;
     private String email;
     private Direccion direccion;
 
+    // Constructor principal
     public Usuario(String dni, String nombre) {
         setDni(dni);
         setNombre(nombre);
@@ -22,7 +30,7 @@ public class Usuario {
         this(dni, "Temporal");
     }
 
-    //Constructor copia profunda
+    // Constructor copia
     public Usuario(Usuario otro) {
         this.dni = otro.dni;
         this.nombre = otro.nombre;
@@ -40,18 +48,16 @@ public class Usuario {
         }
     }
 
+    // Getters y Setters
     public String getDni() {
         return dni;
     }
-
     public String getNombre() {
         return nombre;
     }
-
     public String getEmail() {
         return email;
     }
-
     public Direccion getDireccion() {
         return direccion;
     }
@@ -64,13 +70,11 @@ public class Usuario {
 
         this.dni = dni;
     }
-
     public void setNombre(String nombre) throws IllegalArgumentException {
         if (nombre == null) throw new IllegalArgumentException("Nombre no puede ser nulo");
         if (nombre.trim().isEmpty()) throw new IllegalArgumentException("Nombre no puede estar vacío");
         this.nombre = nombre;
     }
-
     public void setEmail(String email) throws IllegalArgumentException {
         if (email == null) throw new IllegalArgumentException("Email no puede ser nulo");
         if (email.trim().isEmpty()) throw new IllegalArgumentException("Email no puede estar vacío");
@@ -78,7 +82,6 @@ public class Usuario {
         if (!email.matches(EMAIL_BASICO)) throw new IllegalArgumentException("Email inválido");
         this.email = email;
     }
-
     public void setDireccion(Direccion direccion) throws IllegalArgumentException {
         this.direccion = direccion;
     }

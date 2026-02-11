@@ -5,18 +5,24 @@ import biblioteca.modelo.dominio.Libro;
 import biblioteca.modelo.dominio.Usuario;
 
 import java.time.LocalDate;
-
+/**
+ * Clase Prestamos (paquete negocio).
+ * Gestiona la colección de préstamos de la biblioteca.
+ * Permite crear, devolver y listar préstamos.
+ */
 public class Prestamos {
 
+    //Atributos
     private Prestamo[] prestamos;
     private int capacidad;
 
+    // Constructor
     public Prestamos(int capacidad) {
         this.capacidad = capacidad;
         prestamos = new Prestamo[capacidad];
     }
 
-    /* ---------- PRESTAR ---------- */
+    // Realiza un préstamo
     public Prestamo prestar(Libro libro, Usuario usuario, LocalDate fecha) {
         if (libro == null || usuario == null || fecha == null) {
             return null;
@@ -43,7 +49,7 @@ public class Prestamos {
         return null; // sin espacio
     }
 
-    /* ---------- DEVOLVER ---------- */
+    // Devuelve un préstamo.
     public boolean devolver(Libro libro, Usuario usuario, LocalDate fecha) {
         if (libro == null || usuario == null || fecha == null) {
             return false;
@@ -65,10 +71,7 @@ public class Prestamos {
         }
     }
 
-    /* ---------- LISTAR ---------- */
-
-
-    /* ---------- LISTAR TODOS ---------- */
+    // Lista todos los préstamos
     public Prestamo[] todos() {
         int contador = 0;
 
@@ -90,7 +93,7 @@ public class Prestamos {
         return resultado;
     }
 
-    /* ---------- LISTAR POR USUARIO ---------- */
+    // Lista los préstamos de un usuario
     public Prestamo[] todos(Usuario usuario) {
         if (usuario == null) {
             return new Prestamo[0];

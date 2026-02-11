@@ -2,17 +2,24 @@ package biblioteca.modelo.negocio;
 
 import biblioteca.modelo.dominio.Libro;
 
+/**
+ * Clase Libros (paquete negocio).
+ * Gestiona la colección de libros de la biblioteca.
+ * Permite alta, baja, búsqueda y listado de libros.
+ */
 public class Libros {
 
+    // Atributos
     private Libro[] libros;
     private int capacidad;
 
+    //Constructor
     public Libros(int capacidad) {
         this.capacidad = capacidad;
         libros = new Libro[capacidad];
     }
 
-    /* ---------- ALTA ---------- */
+    // Alta de un libro
     public void alta(Libro libro) {
         if (libro == null) {
             throw new IllegalArgumentException("El libro no puede ser nulo");
@@ -28,7 +35,7 @@ public class Libros {
         throw new IllegalStateException("No hay espacio para más libros");
     }
 
-    /* ---------- BAJA ---------- */
+    // Baja de un libro
     public boolean baja(Libro libro) {
         if (libro == null) {
             return false;
@@ -43,7 +50,7 @@ public class Libros {
         return false;
     }
 
-    /* ---------- BUSCAR ---------- */
+    // Búsqueda de un libro
     public Libro buscar(Libro libro) {
         if (libro == null) {
             return null;
@@ -57,7 +64,7 @@ public class Libros {
         return null;
     }
 
-    /* ---------- LISTAR ---------- */
+    // Lista de todos los libros
     public Libro[] todos() {
         int contador = 0;
 

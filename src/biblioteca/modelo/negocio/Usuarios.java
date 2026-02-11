@@ -2,17 +2,24 @@ package biblioteca.modelo.negocio;
 
 import biblioteca.modelo.dominio.Usuario;
 
+/**
+ * Clase Usuarios (paquete negocio).
+ * Gestiona la colección de usuarios de la biblioteca.
+ * Permite alta, baja, búsqueda y listado de usuarios.
+ */
 public class Usuarios {
 
+    //Atributos
     private Usuario[] usuarios;
     private int capacidad;
 
+    //Constructor
     public Usuarios(int capacidad) {
         this.capacidad = capacidad;
         usuarios = new Usuario[capacidad];
     }
 
-    /* ---------- ALTA ---------- */
+    // Alta de un usuario
     public void alta(Usuario usuario) {
         if (usuario == null) {
             throw new IllegalArgumentException("El usuario no puede ser nulo");
@@ -28,7 +35,7 @@ public class Usuarios {
         throw new IllegalStateException("No hay espacio para más usuarios");
     }
 
-    /* ---------- BAJA ---------- */
+    // Baja de un usuario
     public boolean baja(Usuario usuario) {
         if (usuario == null) {
             return false;
@@ -43,7 +50,7 @@ public class Usuarios {
         return false;
     }
 
-    /* ---------- BUSCAR ---------- */
+    // Búsqueda de un usuario
     public Usuario buscar(Usuario usuario) {
         if (usuario == null) {
             return null;
@@ -57,7 +64,7 @@ public class Usuarios {
         return null;
     }
 
-    /* ---------- LISTAR ---------- */
+    // Lista de usuarios
     public Usuario[] todos() {
         int contador = 0;
 

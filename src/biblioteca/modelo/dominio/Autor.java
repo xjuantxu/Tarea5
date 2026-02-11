@@ -2,12 +2,18 @@ package biblioteca.modelo.dominio;
 
 import java.util.Objects;
 
+/**
+ * Clase Autor.
+ * Representa un autor de un libro, con nombre, apellidos y nacionalidad.
+ */
 public class Autor {
 
+    // Atributos
     private String nombre;
     private String apellidos;
     private String nacionalidad;
 
+    // Constructor
     public Autor(String nombre, String apellidos, String nacionalidad){
         setNombre(nombre);
         setApellidos(apellidos);
@@ -21,16 +27,14 @@ public class Autor {
         this.nacionalidad = otro.nacionalidad;
     }
 
-
+    // Getters y setters
     public String getNombre() {
 
         return nombre;
     }
-
     public String getApellidos() {
         return apellidos;
     }
-
     public String getNacionalidad() {
 
         return nacionalidad;
@@ -42,14 +46,11 @@ public class Autor {
 
         this.nombre = nombre;
     }
-
     public void setApellidos(String apellidos) throws IllegalArgumentException {
         if (apellidos == null) throw new IllegalArgumentException("Apellidos no puede ser nulo");
         if (apellidos.trim().isEmpty()) throw new IllegalArgumentException("Apellidos no puede estar vacío");
         this.apellidos = apellidos;
     }
-
-
     public void setNacionalidad(String nacionalidad) throws IllegalArgumentException {
         if (nacionalidad == null) throw new IllegalArgumentException("Nacionalidad no puede ser nulo");
         if (nacionalidad.trim().isEmpty()) throw new IllegalArgumentException("Nacionalidad no puede estar vacío");
